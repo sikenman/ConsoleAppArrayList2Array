@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleAppArrayList2Array
 {
+    /// <author>Siken M. Dongol</author>
+    /// <datecreated>6/11/2018</datecreated>
+    /// <summary>Console application to convert ArrayList to 2D Array with given column size</summary>
+    /// 
     class Program
     {
-        public const int BLOCK_COLUMN_SIZE = 1;
+        public const int BLOCK_COLUMN_SIZE = 7;
 
         static void Main(string[] args)
         {
-
             ArrayList MyArrayList = new ArrayList
             {
                 "4feeeae6-a469-e811-8116-00155dce4461",
@@ -47,48 +46,64 @@ namespace ConsoleAppArrayList2Array
                 "46b1b6d7-896a-e811-8116-00155dce447a",
                 "b39def72-8d6a-e811-8116-00155dce447b",
                 "c39def72-8d6a-e811-8117-00155dce447c",
+
+                "c39def72-8d6a-e811-8117-00155dce447d",
+                "c39def72-8d6a-e811-8117-00155dce447e",
             };
 
-            Console.WriteLine(MyArrayList.Count);
+            Console.WriteLine($"\nTotal items in ArrayList : {MyArrayList.Count}");
+
             float totalBlocks = (float)MyArrayList.Count / BLOCK_COLUMN_SIZE;
-
             int IntTotalRows = (int)Math.Ceiling(totalBlocks);
-            Console.WriteLine($"Required Rows (Blocks) : {IntTotalRows}");
 
-            // ArrayList to 2D array
+            Console.WriteLine($" Required Rows (Blocks)  : {IntTotalRows}");
+            Console.WriteLine();
+
+            // Initialization of the 2D Array
             string[,] My2DArray = new string[IntTotalRows, BLOCK_COLUMN_SIZE];
 
+            ConvertArrayListTo2DArray(MyArrayList, My2DArray, BLOCK_COLUMN_SIZE);
+            Print2DArray(My2DArray, IntTotalRows, BLOCK_COLUMN_SIZE);
+
+            Console.ReadKey();
+        }
+
+        public static void ConvertArrayListTo2DArray(ArrayList MyArrayList, string[,] My2DArray, int BlockColumnSize)
+        {
             int Row = 0;
             int Column = 0;
+
             for (int i = 0; i < MyArrayList.Count; i++)
             {
-                // Important LOGIC
-                if (Column == BLOCK_COLUMN_SIZE)
+                // Very Important LOGIC
+                if (Column == BlockColumnSize)
                 {
                     Row++;
                     Column = 0; // Reset Column
                 }
 
-                if (Column < BLOCK_COLUMN_SIZE)
+                if (Column < BlockColumnSize)
                 {
                     My2DArray[Row, Column] = MyArrayList[i].ToString();
-                    //Console.WriteLine(apple[Row, Column]);
                     Column++;
                 }
             }
+        }
 
+        public static void Print2DArray(string[,] My2DArray, int RowSize, int ColumnSize)
+        {
             int Sn = 1;
             // Print the 2D Array
-            for (int i = 0; i < IntTotalRows; i++)
+            for (int i = 0; i < RowSize; i++)
             {
-                for (int j = 0; j < BLOCK_COLUMN_SIZE; j++)
+                for (int j = 0; j < ColumnSize; j++)
                 {
-                    Console.WriteLine(Sn + $". [{i},{j}] " + My2DArray[i, j]);
+                    Console.Write(" {0,2:00}", Sn);  // Adds leading zeros to Sn like 02,03
+                    Console.WriteLine($". [{i},{j}] " + My2DArray[i, j]);
                     Sn++;
                 }
                 Console.WriteLine(Environment.NewLine);
             }
-            Console.ReadKey();
         }
     }
 }
