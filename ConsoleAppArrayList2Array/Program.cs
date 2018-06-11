@@ -65,6 +65,8 @@ namespace ConsoleAppArrayList2Array
             ConvertArrayListTo2DArray(MyArrayList, My2DArray, BLOCK_COLUMN_SIZE);
             Print2DArray(My2DArray, IntTotalRows, BLOCK_COLUMN_SIZE);
 
+            Console.WriteLine(" My2DArray    Row : " + My2DArray.GetLength(0));
+            Console.WriteLine(" My2DArray Column : " + My2DArray.GetLength(1));
             Console.ReadKey();
         }
 
@@ -94,12 +96,12 @@ namespace ConsoleAppArrayList2Array
         {
             int Sn = 1;
             // Print the 2D Array
-            for (int i = 0; i < RowSize; i++)
+            for (int row = 0; row < RowSize; row++)
             {
-                for (int j = 0; j < ColumnSize; j++)
+                for (int col = 0; col < ColumnSize; col++)
                 {
                     Console.Write(" {0,2:00}", Sn);  // Adds leading zeros to Sn like 02,03
-                    Console.WriteLine($". [{i},{j}] " + My2DArray[i, j]);
+                    Console.WriteLine($". [{row},{col}] " + My2DArray[row, col]);
                     Sn++;
                 }
                 Console.WriteLine(Environment.NewLine);
